@@ -1,9 +1,12 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { useAuthContext } from '../providers/AuthProvider';
+//import { useFirebaseContext } from '../providers/FirebaseProvider';
 
 export const PostCreate = () => {
   const { profile } = useAuthContext();
   const { blogId } = useParams();
+
+  //const { myStorage, myFS } = useFirebaseContext();
 
   // this is not the cleanest way to handle "authentication routing" but works for now
   if (!profile) {

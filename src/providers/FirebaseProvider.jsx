@@ -8,14 +8,13 @@ import { getStorage, connectStorageEmulator } from 'firebase/storage';
 export const FirebaseContext = createContext({});
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyA7l3bp6bLVGEJDEn13JbePBVbHI63WFhM',
-  authDomain: 'tick8s-dev-1.firebaseapp.com',
-  databaseURL: 'https://tick8s-dev-1.firebaseio.com',
-  projectId: 'tick8s-dev-1',
-  storageBucket: 'tick8s-dev-1.appspot.com',
-  messagingSenderId: '794441423057',
-  appId: '1:794441423057:web:04b8822e46973b38b44df0',
-  measurementId: 'G-0QL7P8KVKF',
+  apiKey: "AIzaSyBw36CXGAx-QN-5GgwDTz0-0XXcPQfNq_U",
+  authDomain: "database-39c8d.firebaseapp.com",
+  projectId: "database-39c8d",
+  storageBucket: "database-39c8d.appspot.com",
+  messagingSenderId: "45153771178",
+  appId: "1:45153771178:web:7b847d2c4622fac518bad3",
+  measurementId: "G-ZTCSSWYMK8"
 };
 
 const FirebaseProvider = (props) => {

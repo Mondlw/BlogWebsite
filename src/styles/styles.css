@@ -1,0 +1,285 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: hsl(207, 74%, 61%);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  align-items: center;
+  justify-content: center;
+
+}
+
+li {
+  float: left;
+}
+
+li a, .dropbtn {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+li.dropdown {
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1;}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+li a, .nws {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover, .news:hover .nws {
+  background-color: red;
+}
+
+li.news {
+  display: inline-block;
+}
+
+.news-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.news-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.news-content a:hover {background-color: #f1f1f1;}
+
+.news:hover .news-content {
+  display: block;
+}
+
+
+li a, .subsc {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover, .subscriptions:hover .subsc {
+  background-color: red;
+}
+
+li.subscriptions {
+  display: inline-block;
+}
+
+.subscriptions-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.subscriptions-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.subscriptions-content a:hover {background-color: #f1f1f1;}
+
+.subscriptions:hover .subscriptions-content {
+  display: block;
+}
+
+li a, .plcs {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover, .places:hover .plcs {
+  background-color: red;
+}
+
+li.places {
+  display: inline-block;
+}
+
+.places-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.places-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.places-content a:hover {background-color: #f1f1f1;}
+
+.places:hover .places-content {
+  display: block;
+}
+
+
+li a, .fryu {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover, .foryou:hover .fryu {
+  background-color: red;
+}
+
+li.foryou {
+  display: inline-block;
+}
+
+.foryou-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.foryou-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.foryou-content a:hover {background-color: #f1f1f1;}
+
+.foryou:hover .foryou-content {
+  display: block;
+}
+
+li a, .prfl {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover, .profile:hover .prfl {
+  background-color: red;
+}
+
+li.profile {
+  margin-left: auto;
+  margin-right: 0;
+  float: right;
+}
+
+.profile-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.profile-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.profile-content a:hover {background-color: #f1f1f1;}
+
+.profile:hover .profile-content {
+  display: block;
+}
+
+.berge {
+  height:100%;
+  position: fixed;
+  top: 0;
+  left: 0;}
+
+.content {
+  margin-left: 190px;
+  margin-right: 189px;
+  margin-top: 46px;
+}
+
+.searchbar {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.meer {
+ position: fixed;
+ top: 0;
+ right: 0;
+ height: 100%;
+}
+
+body{
+  margin-left: 0;
+  
+}

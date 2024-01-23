@@ -2,8 +2,10 @@ import { useState } from 'react';
 import { useAuthContext } from '../providers/AuthProvider';
 import { Register } from '../components/Register';
 
+import {Navigate} from "react-router-dom"
+
 export const Login = () => {
-  const { login, authErrorMessages } = useAuthContext();
+  const { login, authErrorMessages, profile } = useAuthContext();
 
   const [email, setEmail] = useState(''); // input field value cannot be null
   const [password, setPassword] = useState(''); // input field value cannot be null
@@ -24,6 +26,10 @@ export const Login = () => {
   const toggleShowRegisterScreen = () => {
     setShowRegisterForm((currVal) => !currVal);
   };
+
+  if(profile) {
+    return <Navigate to="/"></Navigate>
+  }
 
   if (showRegisterForm) {
     return (
