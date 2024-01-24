@@ -11,21 +11,8 @@ export const Navbar = () => {
     <div>
         <ul>
       <li><Link to="/home">Home</Link></li>
-      <li className="dropdown">
-      <a href="#">Create</a>
-        {/*plcs
-        HOME
-        CREATE - DropDown: create blog / post
-        Places 
-        For you (who you subbed to)
-        Random Post
-
-        Search BAR
-        */}
-        <div className="dropdown-content">
-          <Link to="/posts/:blogId/create">Create a post</Link>
-          <Link to="/blogs/create">Create a blog</Link>
-        </div>
+      <li className="bloglist">
+      <Link to="/my-blogs">My Blogs</Link>
       </li>
       <li className="places">
       <Link to="/login">Places</Link>

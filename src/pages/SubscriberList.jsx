@@ -2,10 +2,10 @@ import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../providers/AuthProvider";
 
 import { useState, useEffect } from "react";
-import { collection, getDocs, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot } from "firebase/firestore";
 import { useFirebaseContext } from "../providers/FirebaseProvider";
 
-export const BlogList = () => {
+export const SubscriberList = () => {
   const { profile } = useAuthContext();
   const [blogs, setBlogs] = useState();
 
@@ -16,7 +16,7 @@ export const BlogList = () => {
     const unsub = onSnapshot(blogsRef, (blogssnapshot) => {
       const docs = [];
       blogssnapshot.forEach((docsnap) => {
-        docs.push(docsnap.data());
+        docs.push({data: docsnap.data(), id: docsnap.id});
       });
       setBlogs(docs);
     });
@@ -46,7 +46,7 @@ export const BlogList = () => {
       {blogs ? (
         blogs.map((blog, index) => (
           <h1 className="indiv_blogs" key={index}>
-            {blog.name} : {blog.posts.length}
+            {blog.data.name} : {blog.data.posts.length}
           </h1>
         ))
       ) : (

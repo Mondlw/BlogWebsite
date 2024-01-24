@@ -7,7 +7,6 @@ import {
   query,
   getDocs,
   where,
-  getFirestore,
 } from "firebase/firestore";
 
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
@@ -32,8 +31,7 @@ export const PostCreate = () => {
   }
 
   async function doesBlogExist(blogid) {
-    const db = getFirestore();
-    const q = query(collection(db, "blogs"), where("id", "==", blogid));
+    const q = query(collection(myFS, "blogs"), where("id", "==", blogid));
 
     const querySnapshot = await getDocs(q);
 
@@ -64,6 +62,7 @@ export const PostCreate = () => {
       content: content,
       imagelink: imglink,
       author: profile,
+      blogId: blogId
     };
 
     console.log("Data is", data)

@@ -2,13 +2,14 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import { Login } from '../pages/Login';
 import { RestOfTheApp } from '../pages/RestOfTheApp';
-import { BlogList } from '../pages/BlogList';
+import { SubscriberList } from '../pages/SubscriberList';
 import { PostList } from '../pages/PostList';
 import { PostCreate } from '../pages/PostCreate';
 import { Navbar } from './Navbar';
 import { BlogCreate } from '../pages/BlogCreate';
 import { HomePage } from '../pages/HomePage';
 import { Profile } from '../pages/Profile';
+import { MyBlogs } from '../pages/MyBlogs';
 
 const router = createBrowserRouter([
   {
@@ -28,23 +29,27 @@ const router = createBrowserRouter([
       },
       {
         path: '/blogs',
-        element: <BlogList />
+        element: <SubscriberList />
       },
       {
-        path: '/posts/:blogId',
+        path: '/posts/:blogId', //sigle blog
         element: <PostList />
       },
       {
-        path: '/posts/:blogId/create',
+        path: '/posts/:blogId/create', //create post
         element: <PostCreate />
       },
       {
-        path: "/blogs/create",
+        path: "/my-blogs/create",
         element: <BlogCreate />
       },
       {
         path: "/profile",
         element: <Profile />
+      },
+      {
+        path: "/my-blogs",
+        element: <MyBlogs />
       }
     ]
   },
