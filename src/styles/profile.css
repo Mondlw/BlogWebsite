@@ -1,0 +1,61 @@
+h3,span,h1{
+    font-family: 'Open Sans', sans-serif;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px auto;
+    width: 300px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+  }
+  
+  .profile-header {
+    text-align: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .profile-header h1 {
+    font-size: 32px;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  
+  .profile-header p {
+    font-size: 18px;
+    margin-bottom: 0;
+    font-weight: bold;
+  }
+  
+  .profile-email {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .profile-email i {
+    font-size: 24px;
+    margin-right: 10px;
+  }
+  
+  .profile-email h3 {
+    margin-left: 0;
+  }
+
+  span#profile-greeting {
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 20px;
+  }
+  
+  span#profile-username {
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 0;
+    font-size: 20px;
+  }
+  

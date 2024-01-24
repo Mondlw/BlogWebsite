@@ -1,12 +1,18 @@
 import { Link, Outlet } from "react-router-dom"
-import { logout } from "../providers/AuthProvider";
+import { useAuthContext } from '../providers/AuthProvider';
+
 
 export const Navbar = () => {
+
+  
+  const { logout } = useAuthContext();
+
   return (
     <div>
         <ul>
       <li><Link to="/home">Home</Link></li>
       <li className="dropdown">
+      <a href="#">Create</a>
         {/*plcs
         HOME
         CREATE - DropDown: create blog / post
@@ -17,18 +23,18 @@ export const Navbar = () => {
         Search BAR
         */}
         <div className="dropdown-content">
-          <Link to="/login">Go to login</Link>
-          <Link to="/login">Go to login</Link>
+          <Link to="/posts/:blogId/create">Create a post</Link>
+          <Link to="/blogs/create">Create a blog</Link>
         </div>
       </li>
       <li className="places">
       <Link to="/login">Places</Link>
       </li>
       <li className="subscriptions">
-      <Link to="/login">Subs</Link>
+      <Link to="/blogs">Subs</Link>
       </li>
-      <li className="foryou">
-      <Link to="/login">FY</Link>
+      <li className="random_post">
+      <Link to="/login">Random Post</Link>
       </li>
 
       <li>
@@ -41,7 +47,7 @@ export const Navbar = () => {
       <li className="profile">
       <Link to="/profile">Profile</Link>
         <div className="profile-content">
-          <a href="#"onClick={logout()}>Profile</a>
+          <a href="#" onClick={logout}>Log out</a>
         </div>
       </li>
     </ul>

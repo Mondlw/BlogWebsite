@@ -1,0 +1,12 @@
+.home {
+  position: relative;
+  text-align: center;
+  color: rgb(255, 255, 255);
+}
+
+#home-background {
+  width: 1920px;
+  height: 1080px;
+  position: center;
+  filter: blur(10px)
+}

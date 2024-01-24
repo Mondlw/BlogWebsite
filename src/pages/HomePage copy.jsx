@@ -12,8 +12,8 @@ export const HomePage = () => {
   }
 
   return (
-    <div id="home">
-      <img id="home-background" src="https://i.ibb.co/sV7LcG6/background.jpg" alt="Background Image" />
+    <div>
+      <img id="home-background" src="../pics/Berge.jpg" alt="Background Image" />
       <span id="home-welcome-text">Welcome</span> <br />
       <span id="home-blog-text1">Blog your</span>{" "}
       <span id="home-blog-text2">PRESET</span>
