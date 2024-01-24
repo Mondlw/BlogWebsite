@@ -1,50 +1,34 @@
 import { Link, Outlet } from "react-router-dom"
+import { logout } from "../providers/AuthProvider";
 
 export const Navbar = () => {
   return (
     <div>
         <ul>
-      <li><a className="active" href="./home.html">Home</a></li>
+      <li><Link to="/home">Home</Link></li>
       <li className="dropdown">
-        {/*plcs*/}
+        {/*plcs
+        HOME
+        CREATE - DropDown: create blog / post
+        Places 
+        For you (who you subbed to)
+        Random Post
+
+        Search BAR
+        */}
         <div className="dropdown-content">
-            <Link to="/login">Go to login</Link>
-          <a href="./(New Post) index.html">New Post</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
+          <Link to="/login">Go to login</Link>
+          <Link to="/login">Go to login</Link>
         </div>
       </li>
       <li className="places">
-        {/*plcs*/}
-        <div className="places-content">
-            <a href="./places.html">Search places</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
-        </div>
+      <Link to="/login">Places</Link>
       </li>
       <li className="subscriptions">
-        {/*subsc*/}
-        <div className="subscriptions-content">
-            <a href="./(Subscriptions) index.html">Authors</a>
-          <a href="#">Link 5</a>
-          <a href="#">Link 6</a>
-        </div>
-      </li>
-      <li className="news">
-      <a href="javascript:void(0)" className="nws">nws</a>
-        <div className="news-content">
-          <Link to="/login">Go to login</Link>
-          <Link to="/login">Go to login</Link>
-          <Link to="/login">Go to login</Link>
-        </div>
+      <Link to="/login">Subs</Link>
       </li>
       <li className="foryou">
-        <a href="javascript:void(0)" className="fryu">For you</a>
-        <div className="foryou-content">
-          <Link to="/login">Go to login</Link>
-          <Link to="/blogs">Go to blogs</Link>
-          <Link to="/login">Go to login</Link>
-        </div>
+      <Link to="/login">FY</Link>
       </li>
 
       <li>
@@ -55,11 +39,9 @@ export const Navbar = () => {
     </li>
 
       <li className="profile">
-        <a href="javascript:void(0)" className="prfl">Profile</a>
+      <Link to="/profile">Profile</Link>
         <div className="profile-content">
-            <a href="./profile.html">Profile</a>
-          <a href="#">Log out</a>
-          <a href="#">Settings</a>
+          <a href="#"onClick={logout()}>Profile</a>
         </div>
       </li>
     </ul>

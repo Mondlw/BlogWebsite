@@ -23,11 +23,13 @@ export const BlogList = () => {
     return unsub;
   }, []);
 
-  // this is not the cleanest way to handle "authentication routing" but works for now
+  
   if (!profile) {
     console.warn("profile is not defined. Redirecting to /login.");
     return <Navigate to={"/login"} />;
   }
+
+  
 
   return (
     <div>

@@ -1,16 +1,9 @@
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { useAuthContext } from '../providers/AuthProvider';
 
-const styleBottomCenter = {
-  position: 'absolute',
-  bottom: '10px',
-  width: '90%',
-  textAlign: 'center',
-  color: 'magenta',
-};
 
 export const RestOfTheApp = () => {
-  const { profile, logout } = useAuthContext();
+  const { profile } = useAuthContext();
 
   // this is not the cleanest way to handle "authentication routing" but works for now
   if (!profile) {
@@ -24,12 +17,6 @@ export const RestOfTheApp = () => {
     );
   }
 
-  return (
-    <div>
-      <h1>Hello, {profile.displayName}</h1>
-      <button onClick={logout}>Logout</button>
+  return <Navigate to={'/home'} />
 
-      <div style={styleBottomCenter}>your email: {profile.email}</div>
-    </div>
-  );
-};
+}

@@ -7,6 +7,8 @@ import { PostList } from '../pages/PostList';
 import { PostCreate } from '../pages/PostCreate';
 import { Navbar } from './Navbar';
 import { BlogCreate } from '../pages/BlogCreate';
+import { HomePage } from '../pages/HomePage';
+import { Profile } from '../pages/Profile';
 
 const router = createBrowserRouter([
   {
@@ -15,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <RestOfTheApp />
+      },
+      {
+        path: '/home',
+        element: <HomePage />
       },
       {
         path: '/login',
@@ -35,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/blogs/create",
         element: <BlogCreate />
+      },
+      {
+        path: "/profile",
+        element: <Profile />
       }
     ]
   },

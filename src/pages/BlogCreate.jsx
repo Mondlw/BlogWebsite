@@ -4,7 +4,7 @@ import { useAuthContext } from '../providers/AuthProvider';
 export const BlogCreate = () => {
   const { profile } = useAuthContext();
 
-  // this is not the cleanest way to handle "authentication routing" but works for now
+  // this is not the cleanest way to handle "authentication routing" 
   if (!profile) {
     console.warn('profile is not defined. Redirecting to /login.');
     return <Navigate to={'/login'} />;
