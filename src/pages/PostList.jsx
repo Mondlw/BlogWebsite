@@ -1,4 +1,4 @@
-import { Link, Navigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useLocation, useParams } from 'react-router-dom';
 import { useAuthContext } from '../providers/AuthProvider';
 import { useEffect, useState } from 'react';
 import { useFirebaseContext } from '../providers/FirebaseProvider';
@@ -7,6 +7,8 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore';
 export const PostList = () => {
   const { profile } = useAuthContext();
   const { blogId } = useParams();
+  const { state } = useLocation();
+  const theBlog = state.blog
 
   // this is not the cleanest way to handle "authentication routing" but works for now
 
@@ -38,7 +40,7 @@ export const PostList = () => {
 
   if (!blogId) {
     console.warn('blogId is not defined');
-    return <Navigate to={'/blogs'} />;
+    return <Navigate to={'/my-blogs'} />;
   }
 
   let table;
@@ -53,12 +55,11 @@ export const PostList = () => {
   } else {
     table = <p>Loading..</p>
   }
-
   return (
     <div>
-      <h1>Post List</h1>
+      <h1>Post List for {theBlog.data.name}</h1>
       {table}
-      <Link to="/posts/:blogId/create"><button id="my-post_create-post">+</button></Link>
+      <Link to={`/my-blog/${blogId}/create`}><button id="my-post_create-post">+</button></Link>
 
     </div>
   );

@@ -1,23 +1,19 @@
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useAuthContext } from "../providers/AuthProvider";
 //import { useFirebaseContext } from '../providers/FirebaseProvider';
-import {
-  addDoc,
-  collection,
-  query,
-  getDocs,
-  where,
-} from "firebase/firestore";
+import { addDoc, collection, query, getDocs, where } from "firebase/firestore";
 
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { useFirebaseContext } from "../providers/FirebaseProvider";
 import { useState } from "react";
+
 
 // Create a root reference
 
 export const PostCreate = () => {
   const { profile } = useAuthContext();
   const { blogId } = useParams();
+  const navigate = useNavigate();
 
   const { myStorage, myFS } = useFirebaseContext();
 
@@ -46,7 +42,7 @@ export const PostCreate = () => {
     const metadata = {
       contentType: "image/jpeg",
     };
-    console.log("File:", file)
+    console.log("File:", file);
     // Upload file and metadata to the object 'images/mountains.jpg'
     const storageRef = ref(myStorage, "images/" + file.name);
     const uploadSnapshot = await uploadBytes(storageRef, file, metadata);
@@ -57,31 +53,42 @@ export const PostCreate = () => {
   }
 
   async function saveData(imglink) {
+
+    
     let data = {
       title: titleInput,
       content: content,
-      imagelink: imglink,
       author: profile,
-      blogId: blogId
+      blogId: blogId,
     };
 
-    console.log("Data is", data)
+    console.log("Data is", data);
+
+    if(imglink) {
+      data.imagelink = imglink
+    }
 
     let docRef = await addDoc(collection(myFS, "posts"), data);
-    console.log("DocRef is", docRef.path)
+    console.log("DocRef is", docRef.path);
+    return docRef.id
   }
 
   async function submitForm() {
-    let imageslink = await uploadFile(image);
+    let imageslink = null;
+    if (image) {
+       imageslink = await uploadFile(image);
+    } 
 
-    await saveData(imageslink);
+    let newPostId = await saveData(imageslink);
+
+    navigate(`/my-blog/${blogId}/posts/${newPostId}`)
   }
 
   if (!blogId || !doesBlogExist(blogId)) {
     console.warn("blogId is not defined");
-    return <Navigate to={"/blogs"} />;
+    return <Navigate to={"/my-blogs"} />;
   }
-  console.log("Titleinput", titleInput, "Content", content)
+  console.log("Titleinput", titleInput, "Content", content);
   return (
     <div>
       <label htmlFor="title">Title:</label>
@@ -98,7 +105,6 @@ export const PostCreate = () => {
 
       <label htmlFor="content">Content:</label>
       <textarea
-
         id="content"
         name="content"
         rows="10"
@@ -117,7 +123,7 @@ export const PostCreate = () => {
         name="images"
         accept="image/jpeg, image/png, image/gif"
         onChange={(event) => {
-          console.log("new value set image", event.target.files)
+          console.log("new value set image", event.target.files);
           setImage(event.target.files[0]);
         }}
       />

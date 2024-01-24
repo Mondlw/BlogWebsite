@@ -43,7 +43,7 @@ export const BlogCreate = () => {
 
     console.log("Data is", data)
 
-    let docRef = await addDoc(collection(myFS, "posts"), data);
+    let docRef = await addDoc(collection(myFS, "blogs"), data);
     console.log("DocRef is", docRef.path)
     return docRef.id
   }

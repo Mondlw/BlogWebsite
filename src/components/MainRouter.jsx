@@ -28,19 +28,23 @@ const router = createBrowserRouter([
         element: <Login />,
       },
       {
-        path: '/blogs',
+        path: '/blogs',         //see fav. blogs
         element: <SubscriberList />
       },
       {
-        path: '/posts/:blogId', //sigle blog
+        path: '/my-blogs/:blogId', //see blog
         element: <PostList />
       },
       {
-        path: '/posts/:blogId/create', //create post
+        path: '/my-blog/:blogId/create', //create post
         element: <PostCreate />
       },
       {
-        path: "/my-blogs/create",
+        path: '/my-blog/:blogId/posts/:postId', //see post
+        element: <PostView />
+      },
+      {
+        path: "/my-blogs/create", //create blog
         element: <BlogCreate />
       },
       {

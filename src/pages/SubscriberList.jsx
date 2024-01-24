@@ -46,7 +46,7 @@ export const SubscriberList = () => {
       {blogs ? (
         blogs.map((blog, index) => (
           <h1 className="indiv_blogs" key={index}>
-            {blog.data.name} : {blog.data.posts.length}
+            {blog.data.name}
           </h1>
         ))
       ) : (
