@@ -1,70 +1,96 @@
-import { Link, Outlet } from "react-router-dom";
-import { useAuthContext } from "../providers/AuthProvider";
-import { AppBar, Autocomplete, Box, Button, CssBaseline, TextField, Toolbar, Typography } from "@mui/material";
-import { useConfigContext } from "../providers/ConfigProvider";
+import { Link, Outlet } from 'react-router-dom';
+import { useAuthContext } from '../providers/AuthProvider';
+import {
+  AppBar,
+  Autocomplete,
+  Box,
+  Button,
+  CssBaseline,
+  TextField,
+  Toolbar,
+  Typography,
+} from '@mui/material';
+import { useConfigContext } from '../providers/ConfigProvider';
+
+import {useNavigate } from "react-router-dom"
 
 export const Navbar = () => {
   const { logout } = useAuthContext();
   const { config, allposts } = useConfigContext();
 
-  let alltitles = allposts?.map(el => el.data?.title || "")
-  console.log("All titles", alltitles)
-  console.log("ALl posts", allposts)
+  const navigate = useNavigate();
+
+  let alltitles = allposts?.map((el, index) => ({
+    key: `titles-${index}`,
+    postId: el.id,
+    data: el.data,
+  }));
+
 
   return (
     <div>
-
-<Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar component="nav">
-        <Toolbar>
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            Welcome To My Blog
-          </Typography>
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              <Button sx={{ color: '#fff' }}>
-                Home
-              </Button>
-              <Button sx={{ color: '#fff' }}>
-                My Blogs
-              </Button>
-              
-              <Button sx={{ color: '#fff' }}>
-                Subs
-              </Button>
-              <Button sx={{ color: '#fff' }}>
-                Explore
-              </Button>
-              <Autocomplete
-            disablePortal
-            id="searchplacesbox"
-            options={config?.locations}
-            renderInput={(params) => (
-              <TextField {...params} label="Places" sx={{color: "white"}} />
-            )}
-            sx={{ width: 300}}
-          />
-              <Autocomplete
-            id="searchbar"
-            options={allposts?.map(el => el.data?.title || "")}
-            renderInput={(params) => (
-              <TextField {...params} label="Title" sx={{color: "white"}} />
-            )}
-            sx={{ width: 300}}
-          />
-              <Button sx={{ color: '#fff' }}>
-                Profile
-              </Button>
-
-          </Box>
-        </Toolbar>
-      </AppBar>
+      <Box sx={{ display: 'flex' }}>
+        <AppBar component='nav'>
+          <Toolbar>
+            <Typography
+              variant='h6'
+              component='div'
+              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            >
+              VibrantBlogVoyage
+            </Typography>
+            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+              <Button sx={{ color: '#fff' }}>Home</Button>
+              <Button sx={{ color: '#fff' }}>My Blogs</Button>
+              <Button sx={{ color: '#fff' }}>Subs</Button>
+              <Button sx={{ color: '#fff' }}>Explore</Button>
+            </Box>
+            <Autocomplete
+              onChange={(event, value) => console.log(value)}
+              id='searchplacesbox'
+              options={config?.locations || []}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label='Places'
+                  sx={{ color: 'white' }}
+                  variant='standard'
+                />
+              )}
+              sx={{ width: 300 }}
+            />
+            <Autocomplete
+              id='searchbar'
+              onChange={(event, value) => navigate(`/my-blogs/${value.data.blogId}/posts/${value.postId}`, {state:{post: value.data}})}
+              options={alltitles || []}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label='Title'
+                  sx={{ color: 'white' }}
+                  variant='filled'
+                />
+              )}
+              getOptionLabel={(option) => option.data.title}
+              renderOption={(props, option) => {
+                return (
+                  <li {...props} key={option.key}>
+                    {option.data.title}
+                  </li>
+                );
+              }}
+              sx={{ width: 300 }}
+            />
+            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+              <Button sx={{ color: '#fff' }} onClick={navigate("/profile")}>Profile</Button>
+            </Box>
+            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+              <Button sx={{ color: '#fff' }} onClick={logout}>Log out</Button>
+            </Box>
+          </Toolbar>
+        </AppBar>
       </Box>
-      <div style={{ marginTop: "140px" }}>
+      <div style={{ marginTop: '140px' }}>
         <Outlet></Outlet>
       </div>
     </div>

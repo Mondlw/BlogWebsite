@@ -17,7 +17,7 @@ export const PostView = () => {
 
   useEffect(() => {
     const postsRef = collection(myFS, "posts");
-    const q = query(postsRef, where("title", "==", thePost.data.title));
+    const q = query(postsRef, where("title", "==", thePost.title));
 
     const unsub = onSnapshot(q, (postssnapshot) => {
       const docs = [];
@@ -38,16 +38,18 @@ export const PostView = () => {
     return <Navigate to={"/my-blogs"} />;
   }
 
+  console.log("the post", thePost)
+
   return (
     <div>
       <div className="post-container">
         <a href="#">
-          <h2 className="post-title">{thePost.data.title}</h2>
+          <h2 className="post-title">{thePost.title}</h2>
         </a>
-        <p className="post-description">{thePost.data.content}</p>
+        <p className="post-description">{thePost.content}</p>
 
         <img
-          src={thePost.data.imagelink}
+          src={thePost.imagelink}
           alt="Post image"
           className="post-image rounded"
         />
