@@ -10,6 +10,7 @@ import { BlogCreate } from '../pages/BlogCreate';
 import { HomePage } from '../pages/HomePage';
 import { Profile } from '../pages/Profile';
 import { MyBlogs } from '../pages/MyBlogs';
+import { PostView } from '../pages/PostView';
 
 const router = createBrowserRouter([
   {
@@ -36,11 +37,11 @@ const router = createBrowserRouter([
         element: <PostList />
       },
       {
-        path: '/my-blog/:blogId/create', //create post
+        path: '/my-blogs/:blogId/create', //create post
         element: <PostCreate />
       },
       {
-        path: '/my-blog/:blogId/posts/:postId', //see post
+        path: '/my-blogs/:blogId/posts/:postId', //see post
         element: <PostView />
       },
       {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "/my-blogs",
         element: <MyBlogs />
+      },
+      {
+        path: "/explore",
+        element: <Explore />
       }
     ]
   },

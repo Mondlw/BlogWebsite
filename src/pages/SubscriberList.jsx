@@ -2,7 +2,7 @@ import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../providers/AuthProvider";
 
 import { useState, useEffect } from "react";
-import { collection, onSnapshot } from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useFirebaseContext } from "../providers/FirebaseProvider";
 
 export const SubscriberList = () => {
@@ -13,7 +13,8 @@ export const SubscriberList = () => {
 
   useEffect(() => {
     const blogsRef = collection(myFS, "blogs");
-    const unsub = onSnapshot(blogsRef, (blogssnapshot) => {
+    const q = query(blogsRef, where("blogs.author.uid", "in", ));
+    const unsub = onSnapshot(q, (blogssnapshot) => {
       const docs = [];
       blogssnapshot.forEach((docsnap) => {
         docs.push({data: docsnap.data(), id: docsnap.id});

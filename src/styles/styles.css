@@ -1,19 +1,26 @@
 ul {
+  display: flex;
   list-style-type: none;
   margin: 0;
   padding: 0;
-  background-color: hsl(207, 74%, 61%);
+  background-color: #6C614B;
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: space-between;
 
 }
 
 li {
-  float: left;
+  color: white;
+  text-align: center;
+  padding: 40px;
+  display: block;
+  list-style-type: none;
+  flex-grow: 0;
+  flex-basis: auto;
 }
 
 li a, .dropbtn {
@@ -281,5 +288,33 @@ li.profile {
 
 body{
   margin-left: 0;
-  
+  background-image: "https://i.ibb.co/qyVVQD1/background.jpg";
+  position:center;
+}
+
+.searchbar {
+  display: flex;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.searchbar field {
+  width: 75%;
+  border: none;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+.searchbar .search-icon {
+  width: 15px;
+  height: 15px;
+  margin-right: 10px;
+  background-color: #000;
+  border-radius: 50%;
+  color: #fff;
+  padding: 5px;
+  cursor: pointer;
 }

@@ -7,8 +7,7 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 export const PostView = () => {
   const { profile } = useAuthContext();
   const { blogId, postId } = useParams();
-  const { state } = useLocation();
-  const thePost = state.post;
+  
 
   console.log("Postid is", postId);
   // this is not the cleanest way to handle "authentication routing" but works for now

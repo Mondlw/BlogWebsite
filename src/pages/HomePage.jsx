@@ -1,9 +1,12 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../providers/AuthProvider";
 import "../styles/homepage.css";
 
+
+
 export const HomePage = () => {
   const { profile } = useAuthContext();
+  const navigate = useNavigate();
 
   // this is not the cleanest way to handle "authentication routing" but works for now
   if (!profile) {
@@ -11,14 +14,29 @@ export const HomePage = () => {
     return <Navigate to={"/login"} />;
   }
 
+  function navigatetoBlogs() {
+    navigate("/my-blogs/");
+  }
+
   return (
     <div id="home">
-      <img id="home-background" src="https://i.ibb.co/sV7LcG6/background.jpg" alt="Background Image" />
-      <span id="home-welcome-text">Welcome</span> <br />
-      <span id="home-blog-text1">Blog your</span>{" "}
-      <span id="home-blog-text2">PRESET</span>
-      <button id="home-getstarted-blog">Create your Blog</button>
-      <button id="home-getstarted-post">Add a new Post</button>
+      <div className="content">
+        <h1 className="überschrift">Welcome to VibrantBlogVoyage</h1>
+
+        <h2 className="slogan">A Vibrant Odyssey in Every Post</h2>
+
+        <div className="logo">
+          <img
+            src="https://i.ibb.co/7YqWdP3/Logo.jpg"
+            alt="Beschreibung des Bildes"
+          ></img>
+        </div>
+
+        <h3 className="satz">Create your own blog using the button below</h3>
+        <div className="home-getstarted-post-div">
+          <button onClick={navigatetoBlogs}className="home-getstarted-post">Get started</button>
+        </div>
+      </div>
     </div>
   );
 };

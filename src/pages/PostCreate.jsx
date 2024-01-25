@@ -1,12 +1,11 @@
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAuthContext } from "../providers/AuthProvider";
 //import { useFirebaseContext } from '../providers/FirebaseProvider';
-import { addDoc, collection, query, getDocs, where } from "firebase/firestore";
+import { addDoc, collection, query, getDocs, where, GeoPoint } from "firebase/firestore";
 
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { useFirebaseContext } from "../providers/FirebaseProvider";
 import { useState } from "react";
-
 
 // Create a root reference
 
@@ -15,11 +14,17 @@ export const PostCreate = () => {
   const { blogId } = useParams();
   const navigate = useNavigate();
 
+  const { state }= useLocation();
+  const theBlog = state?.blog;
+
+  
+
   const { myStorage, myFS } = useFirebaseContext();
 
   const [titleInput, setTitleInput] = useState("");
   const [content, setContent] = useState("");
   const [image, setImage] = useState();
+  const [location, setLocation] = useState("");
 
   // this is not the cleanest way to handle "authentication routing" but works for now
   if (!profile) {
@@ -53,8 +58,6 @@ export const PostCreate = () => {
   }
 
   async function saveData(imglink) {
-
-    
     let data = {
       title: titleInput,
       content: content,
@@ -64,24 +67,32 @@ export const PostCreate = () => {
 
     console.log("Data is", data);
 
-    if(imglink) {
-      data.imagelink = imglink
+    if (imglink) {
+      data.imagelink = imglink;
+    }
+
+    if(location) {
+      data.location = location;
     }
 
     let docRef = await addDoc(collection(myFS, "posts"), data);
     console.log("DocRef is", docRef.path);
-    return docRef.id
+    return docRef.id;
   }
 
   async function submitForm() {
     let imageslink = null;
+    if (location) {
+        
+      }
+    
     if (image) {
-       imageslink = await uploadFile(image);
-    } 
+      imageslink = await uploadFile(image);
+    }
 
-    let newPostId = await saveData(imageslink);
+    await saveData(imageslink);
 
-    navigate(`/my-blog/${blogId}/posts/${newPostId}`)
+    navigate(`/my-blogs/${blogId}` , {state:{blog: theBlog}});
   }
 
   if (!blogId || !doesBlogExist(blogId)) {
@@ -115,6 +126,17 @@ export const PostCreate = () => {
         }}
         value={content}
       ></textarea>
+
+      <label htmlFor="location">Location:</label>
+      <input
+        type="text"
+        onChange={(event) => {
+          setLocation(event.target.value);
+        }}
+        value={location}
+        id="location"
+        name="location"
+      />
 
       <label htmlFor="images">Images:</label>
       <input

@@ -51,8 +51,8 @@ export const BlogCreate = () => {
   async function submitForm() {
     let imageslink = await uploadFile(image);
 
-    let newBlogId = await saveData(imageslink);
-    navigate(`/my-blogs/${newBlogId}`)
+    await saveData(imageslink);
+    navigate(`/my-blogs/`)
   }
 
   console.log("Titleinput", titleInput)

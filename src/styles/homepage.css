@@ -1,12 +1,41 @@
-.home {
-  position: relative;
+.überschrift {
   text-align: center;
-  color: rgb(255, 255, 255);
+  font-size: 75px;
+  color:white;
+}
+.slogan {
+  text-align: center;
+  font-size: 35px;
+  font-style: italic;
+  color:white;
+}
+.satz {
+  text-align: center;
+  font-size: 25px;
+  font-style: italic;
+  color:white
+}
+.logo {
+  text-align: center;
 }
 
-#home-background {
-  width: 1920px;
-  height: 1080px;
-  position: center;
-  filter: blur(10px)
+.home-getstarted-post{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 15px;
+  background-color: #00ff00;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.home-getstarted-post-div {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body {
+  background-color: #85775c;
 }

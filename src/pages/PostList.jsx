@@ -1,18 +1,16 @@
-import { Link, Navigate, useLocation, useParams } from 'react-router-dom';
-import { useAuthContext } from '../providers/AuthProvider';
-import { useEffect, useState } from 'react';
-import { useFirebaseContext } from '../providers/FirebaseProvider';
-import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import { Link, Navigate, useLocation, useParams } from "react-router-dom";
+import { useAuthContext } from "../providers/AuthProvider";
+import { useEffect, useState } from "react";
+import { useFirebaseContext } from "../providers/FirebaseProvider";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 
 export const PostList = () => {
   const { profile } = useAuthContext();
   const { blogId } = useParams();
   const { state } = useLocation();
-  const theBlog = state.blog
+  const theBlog = state?.blog;
 
   // this is not the cleanest way to handle "authentication routing" but works for now
-
-  
 
   const [posts, setPosts] = useState();
 
@@ -20,47 +18,58 @@ export const PostList = () => {
 
   useEffect(() => {
     const postsRef = collection(myFS, "posts");
-    const q = query(postsRef,where("blogId", "==", blogId))
+    const q = query(postsRef, where("blogId", "==", blogId));
 
     const unsub = onSnapshot(q, (postssnapshot) => {
       const docs = [];
       postssnapshot.forEach((docsnap) => {
-        docs.push({data: docsnap.data(), id: docsnap.id});
+        docs.push({ data: docsnap.data(), id: docsnap.id });
       });
       setPosts(docs);
     });
     return unsub;
   }, []);
 
-  
   if (!profile) {
     console.warn("profile is not defined. Redirecting to /login.");
     return <Navigate to={"/login"} />;
   }
 
   if (!blogId) {
-    console.warn('blogId is not defined');
-    return <Navigate to={'/my-blogs'} />;
+    console.warn("blogId is not defined");
+    return <Navigate to={"/my-blogs"} />;
   }
 
   let table;
-  if(posts?.length > 0) {
+  if (posts?.length > 0) {
     table = posts.map((post, index) => (
-        <h1 className="indiv_posts" key={index}>
-          {post.data.title} : {post.data.content} : <img src={post.data.imagelink}/>
+      <div key={index}>
+        <h1 className="indiv_posts_link">
+          <Link
+            to={`/my-blogs/${theBlog.id}/posts/${post.id}`}
+            state={{ post: post }}
+          >
+            {post.data.name}Go to{" "}
+          </Link>
         </h1>
-      ))
-  } else if(posts?.length === 0) {
-    table = <p>Create a new blog using the button</p>
+        <h3 className="indiv_post">
+          {post.data.title} : {post.data.content} :{" "}
+          <img src={post.data.imagelink} />
+        </h3>
+      </div>
+    ));
+  } else if (posts?.length === 0) {
+    table = <p>Create a new blog using the button</p>;
   } else {
-    table = <p>Loading..</p>
+    table = <p>Loading..</p>;
   }
   return (
     <div>
       <h1>Post List for {theBlog.data.name}</h1>
       {table}
-      <Link to={`/my-blog/${blogId}/create`}><button id="my-post_create-post">+</button></Link>
-
+      <Link to={`/my-blogs/${blogId}/create`} state={{blog: theBlog}}>
+        <button id="my-post_create-post">+</button>
+      </Link>
     </div>
   );
 };

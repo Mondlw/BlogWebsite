@@ -6,7 +6,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from 'firebase/auth';
-import { doc, onSnapshot, setDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, onSnapshot, setDoc, serverTimestamp, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 
 import { useFirebaseContext } from './FirebaseProvider';
 
@@ -90,6 +90,21 @@ const AuthProvider = (props) => {
       setAuthErrorMessages(null);
     }
   }, [user, setProfile, myFS]);
+
+  const addSubscriber = async (targetuid) => {
+    if(profile.subs) {
+      await updateDoc(doc(myFS, `users/${user.uid}`), {subs: arrayUnion(targetuid)})
+    } else {
+      await updateDoc(doc(myFS, `users/${user.uid}`), {subs: [targetuid]})
+    }
+
+  }
+
+  const removeSubscriber = async (targetuid) => {
+    if(profile.subs) {
+      await updateDoc(doc(myFS, `users/${user.uid}`), {subs: arrayRemove(targetuid)})
+    }
+  }
 
   /**
    *
@@ -186,6 +201,8 @@ const AuthProvider = (props) => {
     authLoading,
     profile,
     user,
+    addSubscriber,
+    removeSubscriber,
     login: loginFunction,
     logout: logoutFunction,
     register: registerFunction,
@@ -204,6 +221,8 @@ const AuthProvider = (props) => {
  * - `authLoading` {boolean} - true if authentication is still loading, false otherwise
  * - `profile` {null|object} - the user profile document from Firestore, or null
  * - `user` {null|object} - the Auth user object, or null
+ * - `addSubscriber {function} - Adds a new subscriber to the users subs array`
+ * - `removeSubscriber {function} - Removes a  subscriber from the users subs array`
  * - `login` {function} - takes an email and password and returns a boolean
  * - `logout` {function} - takes no arguments and returns a boolean
  * - `register` {function} - takes an email, password, and optional displayName and returns true if account is created successfully
