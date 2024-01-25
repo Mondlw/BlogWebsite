@@ -1,7 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
 import { useAuthContext } from "../providers/AuthProvider";
-import "../styles/styles.css";
-import { Autocomplete, TextField } from "@mui/material";
+import { AppBar, Autocomplete, Box, Button, CssBaseline, TextField, Toolbar, Typography } from "@mui/material";
 import { useConfigContext } from "../providers/ConfigProvider";
 
 export const Navbar = () => {
@@ -14,16 +13,33 @@ export const Navbar = () => {
 
   return (
     <div>
-      <link rel="stylesheet" href="../styles/styles.css" />
-      <ul>
-        <li>
-          <Link to="/home">Home</Link>
-        </li>
-        <li className="my-blogs">
-          <Link to="/my-blogs">My Blogs</Link>
-        </li>
-        <li>
-          <Autocomplete
+
+<Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar component="nav">
+        <Toolbar>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+          >
+            Welcome To My Blog
+          </Typography>
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+              <Button sx={{ color: '#fff' }}>
+                Home
+              </Button>
+              <Button sx={{ color: '#fff' }}>
+                My Blogs
+              </Button>
+              
+              <Button sx={{ color: '#fff' }}>
+                Subs
+              </Button>
+              <Button sx={{ color: '#fff' }}>
+                Explore
+              </Button>
+              <Autocomplete
             disablePortal
             id="searchplacesbox"
             options={config?.locations}
@@ -32,16 +48,7 @@ export const Navbar = () => {
             )}
             sx={{ width: 300}}
           />
-        </li>
-        <li className="subscriptions">
-          <Link to="/blogs">Subs</Link>
-        </li>
-        <li className="random_post">
-          <Link to="/explore">Explore</Link>
-        </li>
-
-        <li>
-          <Autocomplete
+              <Autocomplete
             id="searchbar"
             options={allposts?.map(el => el.data?.title || "")}
             renderInput={(params) => (
@@ -49,17 +56,14 @@ export const Navbar = () => {
             )}
             sx={{ width: 300}}
           />
-        </li>
+              <Button sx={{ color: '#fff' }}>
+                Profile
+              </Button>
 
-        <li className="profile">
-          <Link to="/profile">Profile</Link>
-          <div className="profile-content">
-            <a href="#" onClick={logout}>
-              Log out
-            </a>
-          </div>
-        </li>
-      </ul>
+          </Box>
+        </Toolbar>
+      </AppBar>
+      </Box>
       <div style={{ marginTop: "140px" }}>
         <Outlet></Outlet>
       </div>
