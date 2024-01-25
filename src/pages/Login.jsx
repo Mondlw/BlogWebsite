@@ -28,7 +28,7 @@ export const Login = () => {
   };
 
   if(profile) {
-    return <Navigate to="/"></Navigate>
+    return <Navigate to="/home"></Navigate>
   }
 
   if (showRegisterForm) {

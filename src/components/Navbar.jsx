@@ -1,11 +1,10 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useAuthContext } from '../providers/AuthProvider';
 import {
   AppBar,
   Autocomplete,
   Box,
   Button,
-  CssBaseline,
   TextField,
   Toolbar,
   Typography,
@@ -40,10 +39,10 @@ export const Navbar = () => {
               VibrantBlogVoyage
             </Typography>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              <Button sx={{ color: '#fff' }}>Home</Button>
-              <Button sx={{ color: '#fff' }}>My Blogs</Button>
-              <Button sx={{ color: '#fff' }}>Subs</Button>
-              <Button sx={{ color: '#fff' }}>Explore</Button>
+              <Button sx={{ color: '#fff' }} onClick={() => navigate("/home")}>Home</Button>
+              <Button sx={{ color: '#fff' }} onClick={() => navigate("/my-blogs")}>My Blogs</Button>
+              <Button sx={{ color: '#fff' }} onClick={() => navigate("/blogs")}>Subs</Button>
+              <Button sx={{ color: '#fff' }} onClick={() => navigate("/explore")}>Explore</Button>
             </Box>
             <Autocomplete
               onChange={(event, value) => console.log(value)}
@@ -61,14 +60,14 @@ export const Navbar = () => {
             />
             <Autocomplete
               id='searchbar'
-              onChange={(event, value) => navigate(`/my-blogs/${value.data.blogId}/posts/${value.postId}`, {state:{post: value.data}})}
+              onChange={(event, value) => navigate(`/my-blogs/${value.data.blogId}/posts/${value.postId}`, {state:{post: value.data, blogId: value.data.blogId}})}
               options={alltitles || []}
               renderInput={(params) => (
                 <TextField
                   {...params}
                   label='Title'
                   sx={{ color: 'white' }}
-                  variant='filled'
+                  variant='standard'
                 />
               )}
               getOptionLabel={(option) => option.data.title}
@@ -82,7 +81,7 @@ export const Navbar = () => {
               sx={{ width: 300 }}
             />
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              <Button sx={{ color: '#fff' }} onClick={navigate("/profile")}>Profile</Button>
+              <Button sx={{ color: '#fff' }} onClick={() => navigate("/profile")}>Profile</Button>
             </Box>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               <Button sx={{ color: '#fff' }} onClick={logout}>Log out</Button>

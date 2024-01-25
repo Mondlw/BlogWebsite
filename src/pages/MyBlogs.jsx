@@ -56,9 +56,6 @@ export const MyBlogs = () => {
                   alt={blog.data.name}
                 />
               )}
-              <button className="blog-item-subscribe">
-                Subscribe to Author
-              </button>
             </div>
           </div>
         </div>
