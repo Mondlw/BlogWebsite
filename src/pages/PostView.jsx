@@ -5,10 +5,11 @@ import { useFirebaseContext } from "../providers/FirebaseProvider";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 
 export const PostView = () => {
-  const { profile } = useAuthContext();
+  const { profile, addSubscriber } = useAuthContext();
   const { blogId, postId } = useParams();
   const { state } = useLocation();
-  const thePost = state.post;
+  const thePost = state.post.data || state.post;
+  const theBlogId = state.blogId;
 
   console.log("Postid is", postId);
   // this is not the cleanest way to handle "authentication routing" but works for now
@@ -17,7 +18,8 @@ export const PostView = () => {
 
   useEffect(() => {
     const postsRef = collection(myFS, "posts");
-    const q = query(postsRef, where("title", "==", thePost.title));
+    console.log("the post", thePost)
+    const q = query(postsRef, where("title", "==", thePost.title || thePost.data.title));
 
     const unsub = onSnapshot(q, (postssnapshot) => {
       const docs = [];
@@ -38,21 +40,28 @@ export const PostView = () => {
     return <Navigate to={"/my-blogs"} />;
   }
 
-  console.log("the post", thePost)
+  console.log("the post", thePost);
 
   return (
     <div>
       <div className="post-container">
         <a href="#">
-          <h2 className="post-title">{thePost.title}</h2>
+          <h2 className="post-title">{thePost.data.title || thePost.title}</h2>
         </a>
-        <p className="post-description">{thePost.content}</p>
+        <p className="post-description">{thePost.data.content || thePost.content}</p>
 
         <img
-          src={thePost.imagelink}
+          src={thePost.data.imagelink || thePost.imagelink}
           alt="Post image"
           className="post-image rounded"
         />
+
+        <button
+          className="blog-item-subscribe"
+          onClick={() => addSubscriber(thePost.data.author.uid || thePost.author.uid)}
+        >
+          Subscribe to Author
+        </button>
       </div>
     </div>
   );

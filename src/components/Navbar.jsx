@@ -1,11 +1,10 @@
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useAuthContext } from '../providers/AuthProvider';
 import {
   AppBar,
   Autocomplete,
   Box,
   Button,
-  CssBaseline,
   TextField,
   Toolbar,
   Typography,
@@ -40,10 +39,10 @@ export const Navbar = () => {
               VibrantBlogVoyage
             </Typography>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              <Button component={Link} to="/" sx={{ color: '#fff' }}>Home</Button>
-              <Button component={Link} to="/my-blogs" sx={{ color: '#fff' }}>My Blogs</Button>
-              <Button component={Link} to="/subs" sx={{ color: '#fff' }}>Subs</Button>
-              <Button component={Link} to="/explore" sx={{ color: '#fff' }}>Explore</Button>
+              <Button sx={{ color: '#fff' }} onClick={() => navigate("/home")}>Home</Button>
+              <Button sx={{ color: '#fff' }} onClick={() => navigate("/my-blogs")}>My Blogs</Button>
+              <Button sx={{ color: '#fff' }} onClick={() => navigate("/blogs")}>Subs</Button>
+              <Button sx={{ color: '#fff' }} onClick={() => navigate("/explore")}>Explore</Button>
             </Box>
 
             <Autocomplete
@@ -123,7 +122,7 @@ export const Navbar = () => {
               sx={{ width: 240, ml: 2 }}
             />
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-              <Button component={Link} to="/profile" sx={{ color: '#fff' }}>Profile</Button>
+              <Button sx={{ color: '#fff' }} onClick={() => navigate("/profile")}>Profile</Button>
             </Box>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               <Button sx={{ color: '#fff' }} onClick={logout}>Log out</Button>
