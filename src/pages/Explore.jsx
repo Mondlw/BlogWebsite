@@ -1,48 +1,27 @@
-import { Navigate, useLocation, useParams } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../providers/AuthProvider";
-import { useEffect } from "react";
-import { useFirebaseContext } from "../providers/FirebaseProvider";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { useConfigContext } from "../providers/ConfigProvider";
 
-export const PostView = () => {
-  const { profile } = useAuthContext();
-  const { blogId, postId } = useParams();
-  
+export const Explore = () => {
+  const { profile, addSubscriber } = useAuthContext();
 
-  console.log("Postid is", postId);
-  // this is not the cleanest way to handle "authentication routing" but works for now
-
-  const { myFS } = useFirebaseContext();
-
-  useEffect(() => {
-    const postsRef = collection(myFS, "posts");
-    const q = query(postsRef, where("title", "==", thePost.data.title));
-
-    const unsub = onSnapshot(q, (postssnapshot) => {
-      const docs = [];
-      postssnapshot.forEach((docsnap) => {
-        docs.push({ data: docsnap.data(), id: docsnap.id });
-      });
-    });
-    return unsub;
-  }, []);
+  const { allposts } = useConfigContext();
 
   if (!profile) {
     console.warn("profile is not defined. Redirecting to /login.");
     return <Navigate to={"/login"} />;
   }
 
-  if (!blogId) {
-    console.warn("blogId is not defined");
-    return <Navigate to={"/my-blogs"} />;
-  }
 
+  if (!allposts) return <p>Loading..</p>;
+  const random = Math.random() * allposts.length;
+  const thePost = allposts[random];
+  if (!thePost) return <p>No Posts found</p>;
   return (
     <div>
       <div className="post-container">
-        <a href="#">
-          <h2 className="post-title">{thePost.data.title}</h2>
-        </a>
+        <h2 className="post-title">{thePost.data.title}</h2>
+        <button onClick={() => addSubscriber(thePost.data.author.uid)}></button>
         <p className="post-description">{thePost.data.content}</p>
 
         <img

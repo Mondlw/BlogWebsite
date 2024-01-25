@@ -11,6 +11,7 @@ import { HomePage } from '../pages/HomePage';
 import { Profile } from '../pages/Profile';
 import { MyBlogs } from '../pages/MyBlogs';
 import { PostView } from '../pages/PostView';
+import { Explore } from '../pages/explore';
 
 const router = createBrowserRouter([
   {

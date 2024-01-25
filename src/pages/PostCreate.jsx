@@ -1,11 +1,12 @@
 import { Navigate, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAuthContext } from "../providers/AuthProvider";
 //import { useFirebaseContext } from '../providers/FirebaseProvider';
-import { addDoc, collection, query, getDocs, where, GeoPoint } from "firebase/firestore";
+import { addDoc, collection, query, getDocs, where } from "firebase/firestore";
 
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { useFirebaseContext } from "../providers/FirebaseProvider";
 import { useState } from "react";
+import { useConfigContext } from "../providers/ConfigProvider";
 
 // Create a root reference
 
@@ -20,6 +21,7 @@ export const PostCreate = () => {
   
 
   const { myStorage, myFS } = useFirebaseContext();
+  const { config, addLocation } = useConfigContext();
 
   const [titleInput, setTitleInput] = useState("");
   const [content, setContent] = useState("");
@@ -83,7 +85,9 @@ export const PostCreate = () => {
   async function submitForm() {
     let imageslink = null;
     if (location) {
-        
+        if(!config.locations.includes(location)) {
+          addLocation(location)
+        }
       }
     
     if (image) {

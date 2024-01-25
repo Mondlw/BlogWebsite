@@ -1,12 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-import { doc, onSnapshot } from "firebase/firestore";
+import { arrayUnion, collection, doc, onSnapshot, updateDoc } from "firebase/firestore";
 
 import { useFirebaseContext } from "./FirebaseProvider";
 
 export const ConfigContext = createContext({});
 
-const CONFIG_COLLECTION = "config"; // name of the FS collection of config
+const CONFIG_PATH = "config/config"; // name of the FS collection of config
 
 const ConfigProvider = (props) => {
   const children = props.children;
@@ -15,14 +15,30 @@ const ConfigProvider = (props) => {
   const [configLoading, setConfigLoading] = useState(true);
   const [configErrorMessages, setAuthErrorMessages] = useState();
 
+  const [allposts, setAllposts] = useState();
+  // this is not the cleanest way to handle "authentication routing" but works for now
+
   const { myFS } = useFirebaseContext();
+
+  useEffect(() => {
+    const postsRef = collection(myFS, "posts");
+
+    const unsub = onSnapshot(postsRef, (postssnapshot) => {
+      const docs = [];
+      postssnapshot.forEach((docsnap) => {
+        docs.push({ data: docsnap.data(), id: docsnap.id });
+      });
+      setAllposts(docs);
+    });
+    return unsub;
+  }, []);
 
   // listen to the user profile (FS User doc)
   useEffect(() => {
     let unsubscribe = null;
     const listenToConfigDoc = async () => {
       try {
-        let docRef = doc(myFS, CONFIG_COLLECTION, "config");
+        let docRef = doc(myFS, CONFIG_PATH);
         unsubscribe = await onSnapshot(
           docRef,
           (docSnap) => {
@@ -63,6 +79,12 @@ const ConfigProvider = (props) => {
     };
   }, [myFS]);
 
+  const addLocation = async (location) => {
+    await updateDoc(doc(myFS, CONFIG_PATH), {
+      locations: arrayUnion(location),
+    });
+  };
+
   if (configLoading) {
     return <h1>Loading</h1>;
   }
@@ -71,6 +93,8 @@ const ConfigProvider = (props) => {
     configErrorMessages,
     configLoading,
     config,
+    allposts,
+    addLocation,
   };
 
   return (
@@ -86,6 +110,7 @@ const ConfigProvider = (props) => {
  * @returns {Object} an object with the following properties:
  * - `configErrorMessages` {null|string[]}- array of error message strings, or null
  * - `configLoading` {boolean} - true if authentication is still loading, false otherwise
+ * - `addLocation` {function} - add a new Location that can be selected
  */
 const useConfigContext = () => {
   // get the context

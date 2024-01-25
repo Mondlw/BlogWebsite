@@ -1,10 +1,16 @@
 import { Link, Outlet } from "react-router-dom";
 import { useAuthContext } from "../providers/AuthProvider";
-import "../styles/styles.css"
-
+import "../styles/styles.css";
+import { Autocomplete, TextField } from "@mui/material";
+import { useConfigContext } from "../providers/ConfigProvider";
 
 export const Navbar = () => {
   const { logout } = useAuthContext();
+  const { config, allposts } = useConfigContext();
+
+  let alltitles = allposts?.map(el => el.data?.title || "")
+  console.log("All titles", alltitles)
+  console.log("ALl posts", allposts)
 
   return (
     <div>
@@ -16,21 +22,33 @@ export const Navbar = () => {
         <li className="my-blogs">
           <Link to="/my-blogs">My Blogs</Link>
         </li>
-        <li className="places">
-          <Link to="/login">Places</Link>
+        <li>
+          <Autocomplete
+            disablePortal
+            id="searchplacesbox"
+            options={config?.locations}
+            renderInput={(params) => (
+              <TextField {...params} label="Places" sx={{color: "white"}} />
+            )}
+            sx={{ width: 300}}
+          />
         </li>
         <li className="subscriptions">
           <Link to="/blogs">Subs</Link>
         </li>
         <li className="random_post">
-          <Link to="/login">Explore</Link>
+          <Link to="/explore">Explore</Link>
         </li>
 
         <li>
-          <div className="searchbar" action="/action_page.php">
-            <input type="search" className="search-field"/>
-            <input type="submit" className="search-icon"/>
-          </div>
+          <Autocomplete
+            id="searchbar"
+            options={allposts?.map(el => el.data?.title || "")}
+            renderInput={(params) => (
+              <TextField {...params} label="Title" sx={{color: "white"}} />
+            )}
+            sx={{ width: 300}}
+          />
         </li>
 
         <li className="profile">

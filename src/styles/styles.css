@@ -273,11 +273,6 @@ li.profile {
   margin-top: 46px;
 }
 
-.searchbar {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-}
 
 .meer {
  position: fixed;
