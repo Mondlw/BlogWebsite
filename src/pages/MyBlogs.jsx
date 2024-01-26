@@ -4,6 +4,7 @@ import { useAuthContext } from "../providers/AuthProvider";
 import { useState, useEffect } from "react";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useFirebaseContext } from "../providers/FirebaseProvider";
+import { Button } from "@mui/material";
 import "../styles/myblogs.css";
 
 export const MyBlogs = () => {
@@ -51,9 +52,13 @@ export const MyBlogs = () => {
               <p className="blog-item-text">{blog.data.content}</p>
               {blog.data?.imagelink && (
                 <img
-                  src={blog.data.imagelink}
+                  src={blog.data.imagelink }
                   className="blog-item-image"
                   alt={blog.data.name}
+                  onError={(e) => {
+                    e.target.onerror = null; // Prevent infinite fallback loop
+                    e.target.src = "https://static.vecteezy.com/system/resources/thumbnails/005/337/799/small/icon-image-not-found-free-vector.jpg";
+                  }}
                 />
               )}
             </div>
@@ -72,7 +77,20 @@ export const MyBlogs = () => {
       <div id="blog-list">
         <h2 className="blog-list-heading">Blog List</h2>
         {table}
-        <button onClick={() => navigate(`/my-blogs/create`)}id="create-blog">+ Create Blog</button>
+        <Button 
+        sx={{
+          backgroundColor: "secondary.main",
+          color: "#FFFFFF",
+          borderRadius: "5px",
+          width: "200px",
+          height: "50px",
+          fontSize: "20px",
+          marginTop: "20px",
+          marginBottom: "20px",
+          marginLeft: "20px",
+        }}
+        
+        onClick={() => navigate(`/my-blogs/create`)}id="create-blog">+ Create Blog</Button>
       </div>
     </div>
   );
