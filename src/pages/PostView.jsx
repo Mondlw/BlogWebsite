@@ -8,7 +8,7 @@ export const PostView = () => {
   const { profile, addSubscriber } = useAuthContext();
   const { blogId, postId } = useParams();
   const { state } = useLocation();
-  const thePost = state.post.data || state.post;
+  const thePost = state.post.data ? state.post.data : state.post;
   const theBlogId = state.blogId;
 
   console.log("Postid is", postId);
@@ -19,7 +19,7 @@ export const PostView = () => {
   useEffect(() => {
     const postsRef = collection(myFS, "posts");
     console.log("the post", thePost)
-    const q = query(postsRef, where("title", "==", thePost.title || thePost.data.title));
+    const q = query(postsRef, where("title", "==", thePost.title));
 
     const unsub = onSnapshot(q, (postssnapshot) => {
       const docs = [];
@@ -41,24 +41,26 @@ export const PostView = () => {
   }
 
   console.log("the post", thePost);
+  // restructre data from inconsistent data structure
+  const post = thePost.data ? thePost.data : thePost;
 
   return (
     <div>
       <div className="post-container">
         <a href="#">
-          <h2 className="post-title">{thePost.data.title || thePost.title}</h2>
+          <h2 className="post-title">{post.title}</h2>
         </a>
-        <p className="post-description">{thePost.data.content || thePost.content}</p>
+        <p className="post-description">{post.content}</p>
 
         <img
-          src={thePost.data.imagelink || thePost.imagelink}
+          src={post.imagelink}
           alt="Post image"
           className="post-image rounded"
         />
 
         <button
           className="blog-item-subscribe"
-          onClick={() => addSubscriber(thePost.data.author.uid || thePost.author.uid)}
+          onClick={() => addSubscriber(post.author.uid)}
         >
           Subscribe to Author
         </button>
