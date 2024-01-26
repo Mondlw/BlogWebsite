@@ -3,6 +3,7 @@ import { useAuthContext } from "../providers/AuthProvider";
 import { useEffect } from "react";
 import { useFirebaseContext } from "../providers/FirebaseProvider";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { Button } from "@mui/material";
 
 export const PostView = () => {
   const { profile, addSubscriber } = useAuthContext();
@@ -58,12 +59,31 @@ export const PostView = () => {
           className="post-image rounded"
         />
 
-        <button
+        <Button
+          sx={{
+            backgroundColor: 'primary.main',
+            // 'primary.main': The main primary color of your theme.
+            // 'secondary.main': The main secondary color of your theme.
+            // 'error.main': The color representing errors.
+            // 'warning.main': The color representing warnings.
+            // 'info.main': The color representing informational messages.
+            // 'success.main': The color representing success messages.
+            // 'common.black': Black color.
+            // 'common.white': White color.
+            // Any valid CSS color value such as '#FF5733', 'rgb(255, 87, 51)', 'rgba(255, 87, 51, 0.5)', etc.
+            color: 'white',
+            borderRadius: '8px',
+            padding: '10px 20px',
+            margin: "1rem", 
+            '&:hover': {
+              backgroundColor: 'primary.dark',
+            },
+          }}
           className="blog-item-subscribe"
           onClick={() => addSubscriber(post.author.uid)}
         >
           Subscribe to Author
-        </button>
+        </Button>
       </div>
     </div>
   );
