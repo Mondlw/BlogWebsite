@@ -14,7 +14,7 @@ export const SubscriberList = () => {
   useEffect(() => {
     const blogsRef = collection(myFS, "blogs");
     if(!profile.subs) {
-      addSubscriber("empty-array");
+      addSubscriber();
     }
 
     console.log(blogs)
