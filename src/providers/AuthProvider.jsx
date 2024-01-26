@@ -92,22 +92,18 @@ const AuthProvider = (props) => {
   }, [user, setProfile, myFS]);
 
   const addSubscriber = async (targetuid) => {
-    // handle empty-array case with default
-    if(!targetuid) {
-      await updateDoc(doc(myFS, `users/${user.uid}`), {subs: ["default"]})
-    }
-    else
-    if(profile.subs) {
-      await updateDoc(doc(myFS, `users/${user.uid}`), {subs: arrayUnion(targetuid)})
+    if(!targetuid) throw new Error("Add Subscriber: targetuid is undefined")
+    if (profile.subs) {
+      await updateDoc(doc(myFS, `users/${user.uid}`), { subs: arrayUnion(targetuid) })
     } else {
-      await updateDoc(doc(myFS, `users/${user.uid}`), {subs: [targetuid]})
+      await updateDoc(doc(myFS, `users/${user.uid}`), { subs: [targetuid] })
     }
 
   }
 
   const removeSubscriber = async (targetuid) => {
-    if(profile.subs) {
-      await updateDoc(doc(myFS, `users/${user.uid}`), {subs: arrayRemove(targetuid)})
+    if (profile.subs) {
+      await updateDoc(doc(myFS, `users/${user.uid}`), { subs: arrayRemove(targetuid) })
     }
   }
 

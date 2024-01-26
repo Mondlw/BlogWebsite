@@ -6,19 +6,15 @@ import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { useFirebaseContext } from "../providers/FirebaseProvider";
 
 export const SubscriberList = () => {
-  const { profile, addSubscriber } = useAuthContext();
+  const { profile } = useAuthContext();
   const [blogs, setBlogs] = useState();
 
   const { myFS } = useFirebaseContext();
 
   useEffect(() => {
     const blogsRef = collection(myFS, "blogs");
-    if(!profile.subs) {
-      addSubscriber();
-    }
-
     console.log(blogs)
-    const q = query(blogsRef, where("blogs.author.uid", "in", profile.subs));
+    const q = query(blogsRef, where("blogs.author.uid", "in", profile?.subs || ["default"]));
     const unsub = onSnapshot(q, (blogssnapshot) => {
       const docs = [];
       blogssnapshot.forEach((docsnap) => {
