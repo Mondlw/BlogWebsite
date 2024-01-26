@@ -13,8 +13,8 @@ export const SubscriberList = () => {
 
   useEffect(() => {
     const blogsRef = collection(myFS, "blogs");
-    console.log(blogs)
-    const q = query(blogsRef, where("blogs.author.uid", "in", profile?.subs || ["default"]));
+    const q = query(blogsRef, where("author.uid", "in", profile?.subs || ["default"]));
+    console
     const unsub = onSnapshot(q, (blogssnapshot) => {
       const docs = [];
       blogssnapshot.forEach((docsnap) => {

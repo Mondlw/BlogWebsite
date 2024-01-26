@@ -92,7 +92,9 @@ const AuthProvider = (props) => {
   }, [user, setProfile, myFS]);
 
   const addSubscriber = async (targetuid) => {
-    if(!targetuid) throw new Error("Add Subscriber: targetuid is undefined")
+    if(!targetuid){
+      console.log("No targetuid provided")
+    }
     if (profile.subs) {
       await updateDoc(doc(myFS, `users/${user.uid}`), { subs: arrayUnion(targetuid) })
     } else {
