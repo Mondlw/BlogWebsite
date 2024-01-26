@@ -8,7 +8,9 @@ import {
   TextField,
   Toolbar,
   Typography,
+  Paper
 } from '@mui/material';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import { useConfigContext } from '../providers/ConfigProvider';
 
 import { useNavigate } from "react-router-dom"
@@ -49,6 +51,7 @@ export const Navbar = () => {
               onChange={(event, value) => console.log(value)}
               id='searchbox'
               options={config?.locations || []}
+              popupIcon={<ArrowDropDownIcon sx={{ color: 'white' }} />}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -77,12 +80,19 @@ export const Navbar = () => {
                   variant='standard'
                 />
               )}
+              PaperComponent={({ children }) => (
+                <Paper style={{ color: 'white', backgroundColor: '#5e4c25' }}>{children}</Paper>
+              )}
+              renderOption={(props, option) =>
+                <Box style={{ color: 'white', backgroundColor: '#5e4c25' }} {...props} key={option.key}>  {option} </Box>
+              }
               sx={{ width: 240, ml: 2 }}
             />
             <Autocomplete
               id='searchbox'
               options={alltitles || []}
               onChange={(event, value) => navigate(`/my-blogs/${value.data.blogId}/posts/${value.postId}`, { state: { post: value.data } })}
+              popupIcon={<ArrowDropDownIcon sx={{ color: 'white' }} />}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -112,13 +122,12 @@ export const Navbar = () => {
                 />
               )}
               getOptionLabel={(option) => option.data.title}
-              renderOption={(props, option) => {
-                return (
-                  <li {...props} key={option.key}>
-                    {option.data.title}
-                  </li>
-                );
-              }}
+              PaperComponent={({ children }) => (
+                <Paper sx={{ color: 'white', backgroundColor: '#5e4c25' }}>{children} </Paper>
+              )}
+              renderOption={(props, option) =>
+                <Box key={option.key} sx={{ color: 'white', backgroundColor: '#5e4c25' }} {...props}> {option.data.title} </Box>
+              }
               sx={{ width: 240, ml: 2 }}
             />
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
