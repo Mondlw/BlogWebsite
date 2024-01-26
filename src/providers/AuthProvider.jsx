@@ -92,9 +92,11 @@ const AuthProvider = (props) => {
   }, [user, setProfile, myFS]);
 
   const addSubscriber = async (targetuid) => {
-    if(targetuid === "empty-array") {
-      await updateDoc(doc(myFS, `users/${user.uid}`), {subs: [""]})
+    // handle empty-array case with default
+    if(!targetuid) {
+      await updateDoc(doc(myFS, `users/${user.uid}`), {subs: ["default"]})
     }
+    else
     if(profile.subs) {
       await updateDoc(doc(myFS, `users/${user.uid}`), {subs: arrayUnion(targetuid)})
     } else {
